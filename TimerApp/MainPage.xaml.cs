@@ -20,7 +20,7 @@ public partial class MainPage : ContentPage
         var timer = new PeriodicTimer(TimeSpan.FromSeconds(5));
         CounterBtn.IsEnabled = false;
 
-        SemanticScreenReader.Announce(CounterBtn.Text);
+        
 
         while (await timer.WaitForNextTickAsync())
         {
@@ -28,11 +28,11 @@ public partial class MainPage : ContentPage
                 CounterBtn.Text = $"Clicked {count} time";
             else
                 CounterBtn.Text = $"Clicked {count} times";
-
+		
+	    SemanticScreenReader.Announce(CounterBtn.Text);
             await DisplayAlert("Test", "el valor es true y se ejecuta cada 5 segundos", "Ok");
             count++;
-            if (count <= 4)
-			{
+            if (count >= 4){
                 timer.Dispose();
                 await DisplayAlert("Test", "Saliste del timer", "Ok");
                 CounterBtn.IsEnabled = true;
